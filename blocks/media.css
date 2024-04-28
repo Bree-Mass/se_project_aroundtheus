@@ -1,0 +1,24 @@
+@media screen and (max-width: 480px) {
+  .profile {
+    flex-direction: column;
+    max-height: 286px;
+    padding: 42px 19px 36px;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-gap: 0;
+  }
+
+  .profile__description {
+    width: 100%;
+    text-align: center;
+  }
+
+  .profile__add-button {
+    width: 282px;
+    margin: 0;
+  }
+}
