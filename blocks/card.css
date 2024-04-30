@@ -22,7 +22,7 @@
 
 .card__description {
   font-size: 24px;
-  line-height: 29px;
+  line-height: 1.2;
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -32,9 +32,10 @@
 
 .card__like-button {
   background: transparent url(../images/heart.svg) center no-repeat;
-  width: 21px;
+  min-width: 21px;
   height: 18px;
   border: none;
+  padding: 0;
 }
 
 .card__like-button:hover {

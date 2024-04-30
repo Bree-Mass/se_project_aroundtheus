@@ -1,8 +1,6 @@
-html {
-  padding: 0 5px;
-}
-
 .page {
+  display: flex;
+  justify-content: center;
   background-color: #000;
   color: white;
   font-family: "Inter", Arial, Helvetica, sans-serif;
@@ -15,5 +13,5 @@ html {
   max-width: 880px;
   width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
+  margin: 0 19px;
 }
