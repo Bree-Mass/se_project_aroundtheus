@@ -34,13 +34,11 @@
   .profile__name {
     font-size: 22px;
     line-height: 1.2;
-    max-height: 22px;
   }
 
   .profile__description {
     width: 100%;
     text-align: center;
-    max-height: 14px;
     font-size: 14px;
     line-height: 1.2;
   }
