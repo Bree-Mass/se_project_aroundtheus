@@ -4,7 +4,6 @@
   background-color: #000;
   color: white;
   font-family: "Inter", Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
 }
 
 .page__content {
@@ -14,4 +13,11 @@
   width: 100%;
   min-height: 100vh;
   margin: 0 19px;
+}
+
+@media screen and (min-width: 850px) {
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
 }
