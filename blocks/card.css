@@ -1,5 +1,5 @@
 .card {
-  width: 282px;
+  max-width: 282px;
   background-color: white;
   color: black;
   border-radius: 10px;
@@ -16,7 +16,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 30px 25px 20px;
 }
 
 .card__description {
@@ -26,7 +25,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  margin: 0;
+  margin: 25px auto 25px 20px;
 }
 
 .card__like-button {
@@ -35,6 +34,7 @@
   height: 18px;
   border: none;
   padding: 0;
+  margin: 31px 20px 30px auto;
 }
 
 .card__like-button:hover {

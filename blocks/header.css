@@ -1,20 +1,25 @@
 .header {
   width: 100%;
   padding-top: 45px;
+  border-bottom: solid rgba(84, 84, 84, 0.7) 1px;
 }
 
 .header__image {
-  max-width: 173px;
-  max-height: 33px;
+  width: 173px;
+  height: 33px;
+  margin-bottom: 41px;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 640px) {
   .header {
-    padding: 28px 0 0 8px;
+    padding: 28px 0 32px;
   }
 
   .header__image {
-    max-width: 126px;
-    max-height: 24px;
+    width: 126px;
+    height: 24px;
+    margin-left: 27px;
+    padding-bottom: 0;
   }
 }

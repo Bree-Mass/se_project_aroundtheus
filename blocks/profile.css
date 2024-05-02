@@ -6,9 +6,10 @@
 }
 
 .profile__image {
-  width: 120px;
-  height: 120px;
+  max-width: 120px;
+  max-height: 120px;
   border-radius: 50%;
+  object-fit: cover;
   margin-right: 30px;
 }
 
@@ -88,16 +89,15 @@
   }
 
   .profile__info {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    column-gap: 14px;
+    grid-template-columns: none;
+    gap: 14px;
+    column-gap: 10px;
     padding-top: 30px;
     padding-bottom: 36px;
   }
 
   .profile__name {
+    text-align: center;
     font-size: 22px;
     line-height: 1.2;
   }
@@ -114,6 +114,7 @@
     width: 18px;
     height: 18px;
     align-self: center;
+    margin-right: auto;
   }
 
   .profile__add-button {

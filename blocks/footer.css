@@ -1,6 +1,5 @@
 .footer {
   align-self: flex-start;
-  margin: 67px 0 60px;
 }
 
 .footer__text {
@@ -8,11 +7,12 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.2;
-  margin: 0;
+  margin: 67px 0 60px 0;
 }
 
 @media screen and (max-width: 640px) {
   .footer__text {
-    margin: 67px 0 60px;
+    font-size: 14px;
+    margin: 48px 0 36px 19px;
   }
 }
