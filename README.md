@@ -36,4 +36,5 @@ Page could be improved with more interactive elements for the user to engage wit
 
 **Project Video**
 
-Here will be an explanation of the website and its features by me. I will upload this portion after the first review when most of the issues are addressed. The link will be [HERE](Video_Link).
+Here is an explanation of the website and its features by me.
+[Link to Google Drive](https://drive.google.com/file/d/1gtYtt3IB_g448QjgUnsCZWrxJZlBqk_h/view?usp=sharing).
