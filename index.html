@@ -31,72 +31,15 @@
         </section>
         <section class="gallery">
           <ul class="gallery__cards">
-            <li class="card">
-              <img
-                src="./images/yosemite.jpg"
-                alt="Beautiful view in Yosimite Valley next to a river"
-                class="card__image"
-              />
-              <div class="card__footer">
-                <h2 class="card__description">Yosemite Valley</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/lake-louise.jpg"
-                alt="Gorgeous lakeview in Lake Louise"
-                class="card__image"
-              />
-              <div class="card__footer">
-                <h2 class="card__description">Lake Louise</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/bald-mountains.jpg"
-                alt="Sunrine over the Bald Mountains"
-                class="card__image"
-              />
-              <div class="card__footer">
-                <h2 class="card__description">Bald Mountains</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/latemar.jpg"
-                alt="Night sky view on Latemar"
-                class="card__image"
-              />
-              <div class="card__footer">
-                <h2 class="card__description">Latemar</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/vanoise.jpg"
-                alt="Likeside at Vanoise National Park"
-                class="card__image"
-              />
-              <div class="card__footer">
-                <h2 class="card__description">Vanoise National Park</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/lago.jpg"
-                alt="Reflective waters in Lago di Braies"
-                class="card__image"
-              />
-              <div class="card__footer">
-                <h2 class="card__description">Lago di Braies</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
+            <template id="card__template">
+              <li class="card">
+                <img src="" alt="" class="card__image" />
+                <div class="card__footer">
+                  <h2 class="card__description"></h2>
+                  <button type="button" class="card__like-button"></button>
+                </div>
+              </li>
+            </template>
           </ul>
         </section>
       </main>
@@ -106,7 +49,7 @@
     </div>
     <div class="modal">
       <div class="modal__container">
-        <button class="modal__close"></button>
+        <button class="modal__close-button"></button>
         <p class="modal__heading">Edit profile</p>
         <form class="modal__form">
           <input
@@ -114,14 +57,16 @@
             name="name"
             class="modal__name"
             placeholder="Name"
+            required
           />
           <input
             type="text"
             name="description"
             class="modal__description"
             placeholder="Description"
+            required
           />
-          <button class="modal__button">Save</button>
+          <button type="submit" class="modal__button">Save</button>
         </form>
       </div>
     </div>
