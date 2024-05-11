@@ -2,35 +2,33 @@
 ////////// EDIT BUTTON //////////
 ////////// EDIT BUTTON //////////
 
-let profileName = document.querySelector(".profile__name");
-let profileDesc = document.querySelector(".profile__description");
+const profileName = document.querySelector(".profile__name");
+const profileDesc = document.querySelector(".profile__description");
 const editButton = document.querySelector(".profile__edit-button");
 
 const modal = document.querySelector(".modal");
 const closeButton = modal.querySelector(".modal__close-button");
-const form = modal.querySelector(".modal__form");
-let formName = modal.querySelector(".modal__name");
-let formDesc = modal.querySelector(".modal__description");
+const profileForm = document.forms["profile-form"];
+const profileFormName = modal.querySelector("[name = 'name']");
+const profileFormDesc = modal.querySelector("[name = 'description']");
 
 function toggleModal() {
-  modal.classList.toggle("modal__opened");
+  modal.classList.toggle("modal_opened");
 }
 
 editButton.addEventListener("click", function () {
-  formName.value = profileName.textContent;
-  formDesc.value = profileDesc.textContent;
+  profileFormName.value = profileName.textContent;
+  profileFormDesc.value = profileDesc.textContent;
   toggleModal();
 });
 
-closeButton.addEventListener("click", function () {
-  toggleModal();
-});
+closeButton.addEventListener("click", toggleModal);
 
-form.addEventListener("submit", function (evt) {
+profileForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
   toggleModal();
-  profileName.textContent = formName.value;
-  profileDesc.textContent = formDesc.value;
+  profileName.textContent = profileFormName.value;
+  profileDesc.textContent = profileFormDesc.value;
 });
 
 ////////// CARDS //////////
