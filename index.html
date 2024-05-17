@@ -47,7 +47,9 @@
         <p class="footer__text">&#64; 2024 Around The U.S.</p>
       </footer>
     </div>
-    <div class="modal">
+
+    <!--EDIT MODAL-->
+    <div class="modal" id = "edit-modal">
       <div class="modal__container">
         <button class="modal__close-button"></button>
         <p class="modal__heading">Edit profile</p>
@@ -69,6 +71,30 @@
           <button type="submit" class="modal__button">Save</button>
         </form>
       </div>
+
+      <!--ADD MODAL-->
+      <div class="modal">
+        <div class="modal__container">
+          <button class="modal__close-button"></button>
+          <p class="modal__heading">Edit profile</p>
+          <form id="add-card-form" class="modal__form">
+            <input
+              type="text"
+              name="title"
+              class="modal__input"
+              placeholder="Title"
+              required
+            />
+            <input
+              type="text"
+              name="url"
+              class="modal__input"
+              placeholder="Image URL"
+              required
+            />
+            <button type="submit" class="modal__button">Save</button>
+          </form>
+        </div>
     </div>
     <script src="./scripts/index.js"></script>
   </body>

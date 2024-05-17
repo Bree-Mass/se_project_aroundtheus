@@ -1,20 +1,23 @@
-////////// EDIT BUTTON //////////
-////////// EDIT BUTTON //////////
-////////// EDIT BUTTON //////////
+////////// PROFILE EDIT BUTTON //////////
+////////// PROFILE EDIT BUTTON //////////
+////////// PROFILE EDIT BUTTON //////////
 
+const editProfileModal = document.querySelector("#edit-modal");
+const closeButton = editProfileModal.querySelector(".modal__close-button");
+const editButton = document.querySelector(".profile__edit-button");
+const profileForm = document.forms["profile-form"];
 const profileName = document.querySelector(".profile__name");
 const profileDesc = document.querySelector(".profile__description");
-const editButton = document.querySelector(".profile__edit-button");
-
-const modal = document.querySelector(".modal");
-const closeButton = modal.querySelector(".modal__close-button");
-const profileForm = document.forms["profile-form"];
-const profileFormName = modal.querySelector("[name = 'name']");
-const profileFormDesc = modal.querySelector("[name = 'description']");
+const profileFormName = editProfileModal.querySelector("[name = 'name']");
+const profileFormDesc = editProfileModal.querySelector(
+  "[name = 'description']"
+);
 
 function toggleModal() {
-  modal.classList.toggle("modal_opened");
+  editProfileModal.classList.toggle("modal_opened");
 }
+
+closeButton.addEventListener("click", toggleModal);
 
 editButton.addEventListener("click", function () {
   profileFormName.value = profileName.textContent;
@@ -22,14 +25,16 @@ editButton.addEventListener("click", function () {
   toggleModal();
 });
 
-closeButton.addEventListener("click", toggleModal);
-
 profileForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
   toggleModal();
   profileName.textContent = profileFormName.value;
   profileDesc.textContent = profileFormDesc.value;
 });
+
+///////// ADD BUTTON //////////
+///////// ADD BUTTON //////////
+///////// ADD BUTTON //////////
 
 ////////// CARDS //////////
 ////////// CARDS //////////
