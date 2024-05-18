@@ -26,7 +26,7 @@ const initialCards = [
   },
 ];
 
-// MODAL
+// MODALS
 const editProfileModal = document.querySelector("#edit-modal");
 const addCardModal = document.querySelector("#add-modal");
 const imageModal = document.querySelector("#image-modal");
@@ -69,7 +69,13 @@ function getCardElement(data) {
   cardDesc.textContent = data.name;
   cardImage.src = data.link;
   cardImage.setAttribute("alt", data.name);
+
+  // NEW CARD EVENT LISTENERS //
   cardImage.addEventListener("click", () => {
+    const imageModalImage = document.querySelector(".modal__image");
+    const imageModalText = document.querySelector(".modal__image-footing");
+    imageModalImage.src = cardImage.src;
+    imageModalText.textContent = cardImage.alt;
     toggleModal(imageModal);
   });
   likeButton.addEventListener("click", () => {
