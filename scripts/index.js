@@ -3,7 +3,9 @@
 ////////// PROFILE EDIT BUTTON //////////
 
 const editProfileModal = document.querySelector("#edit-modal");
-const closeButton = editProfileModal.querySelector(".modal__close-button");
+const closeProfileButton = editProfileModal.querySelector(
+  ".modal__close-button"
+);
 const editButton = document.querySelector(".profile__edit-button");
 const profileForm = document.forms["profile-form"];
 const profileName = document.querySelector(".profile__name");
@@ -13,21 +15,23 @@ const profileFormDesc = editProfileModal.querySelector(
   "[name = 'description']"
 );
 
-function toggleModal() {
-  editProfileModal.classList.toggle("modal_opened");
+function toggleModal(modal) {
+  modal.classList.toggle("modal_opened");
 }
 
-closeButton.addEventListener("click", toggleModal);
-
-editButton.addEventListener("click", function () {
+editButton.addEventListener("click", () => {
   profileFormName.value = profileName.textContent;
   profileFormDesc.value = profileDesc.textContent;
-  toggleModal();
+  toggleModal(editProfileModal);
 });
 
-profileForm.addEventListener("submit", function (evt) {
+closeProfileButton.addEventListener("click", () => {
+  toggleModal(editProfileModal);
+});
+
+profileForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  toggleModal();
+  toggleModal(editProfileModal);
   profileName.textContent = profileFormName.value;
   profileDesc.textContent = profileFormDesc.value;
 });
@@ -35,6 +39,19 @@ profileForm.addEventListener("submit", function (evt) {
 ///////// ADD BUTTON //////////
 ///////// ADD BUTTON //////////
 ///////// ADD BUTTON //////////
+
+const addCardModal = document.querySelector("#add-modal");
+const closeAddButton = addCardModal.querySelector(".modal__close-button");
+const addCardButton = document.querySelector(".profile__add-button");
+const addForm = document.forms["add-card-form"];
+
+addCardButton.addEventListener("click", () => {
+  toggleModal(addCardModal);
+});
+
+closeAddButton.addEventListener("click", () => {
+  toggleModal(addCardModal);
+});
 
 ////////// CARDS //////////
 ////////// CARDS //////////
@@ -86,4 +103,20 @@ function getCardElement(data) {
 initialCards.forEach((data) => {
   const cardElement = getCardElement(data);
   cardGallery.append(cardElement);
+});
+
+////////// ADD CARD FORM //////////
+////////// ADD CARD FORM //////////
+////////// ADD CARD FORM //////////
+
+addForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  const addFormTitle = addCardModal.querySelector("[name = 'title']");
+  const addFormImage = addCardModal.querySelector("[name = 'url']");
+  const cardData = { name: addFormTitle.value, link: addFormImage.value };
+  const newCard = getCardElement(cardData);
+  cardGallery.prepend(newCard);
+  toggleModal(addCardModal);
+  addFormTitle.value = "";
+  addFormImage.value = "";
 });
