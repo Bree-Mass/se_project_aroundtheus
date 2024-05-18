@@ -58,8 +58,17 @@ const closeImageButton = imageModal.querySelector(".modal__close-button");
 
 // FUNCTIONS
 function toggleModal(modal) {
-  modal.classList.toggle("modal_opened");
+  if (modal.classList.contains("modal_opened")) {
+    const modalOpen = document.querySelector(".modal_opened");
+    modalOpen.setAttribute("style", "animation-name: fade-out");
+    modalOpen.addEventListener("animationend", () => {
+      modal.classList.toggle("modal_opened");
+    });
+  } else {
+    modal.classList.toggle("modal_opened");
+  }
 }
+
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
