@@ -37,6 +37,10 @@
   margin: 31px 20px 30px auto;
 }
 
+.card__like-button_active {
+  background-image: url(../images/heart-active.svg);
+}
+
 .card__like-button:hover {
   cursor: pointer;
   opacity: 0.5;

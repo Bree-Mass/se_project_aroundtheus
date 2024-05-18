@@ -120,3 +120,15 @@ addForm.addEventListener("submit", (evt) => {
   addFormTitle.value = "";
   addFormImage.value = "";
 });
+
+////////// LIKE BUTTON //////////
+////////// LIKE BUTTON //////////
+////////// LIKE BUTTON //////////
+
+const likeButtons = document.querySelectorAll(".card__like-button");
+
+likeButtons.forEach((heart) => {
+  heart.addEventListener("click", () => {
+    heart.classList.toggle("card__like-button_active");
+  });
+});
