@@ -58,13 +58,7 @@ const closeImageButton = imageModal.querySelector(".modal__close-button");
 
 // FUNCTIONS
 function toggleModal(modal) {
-  if (modal.classList.contains("modal_opened")) {
-    modal.classList.toggle("modal_closed");
-  } else if (modal.classList.contains("modal_closed")) {
-    modal.classList.toggle("modal_closed");
-  } else {
-    modal.classList.toggle("modal_opened");
-  }
+  modal.classList.toggle("modal_opened");
 }
 function toggleModalOnClick(modal) {
   return () => {
@@ -94,7 +88,7 @@ function getCardElement(data) {
     likeButton.classList.toggle("card__like-button_active");
   });
   trashButton.addEventListener("click", () => {
-    trashButton.parentElement.remove();
+    cardElement.remove();
   });
   return cardElement;
 }
