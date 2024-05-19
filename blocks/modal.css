@@ -1,16 +1,20 @@
 @keyframes fade-in {
   from {
+    visibility: hidden;
     opacity: 0;
   }
   to {
+    visibility: visible;
     opacity: 1;
   }
 }
 @keyframes fade-out {
   from {
+    visibility: visible;
     opacity: 1;
   }
   to {
+    visibility: hidden;
     opacity: 0;
   }
 }
@@ -29,6 +33,10 @@
 .modal_opened {
   display: flex;
   animation: fade-in 0.3s ease-in-out 0s 1 normal forwards running;
+}
+
+.modal_closed {
+  animation: fade-out 0.3s ease-in-out 0s 1 normal forwards running;
 }
 
 .modal__container {
