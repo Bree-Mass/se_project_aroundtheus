@@ -30,16 +30,18 @@ const initialCards = [
 const editProfileModal = document.querySelector("#edit-modal");
 const addCardModal = document.querySelector("#add-modal");
 const imageModal = document.querySelector("#image-modal");
+const modals = Array.from(document.querySelectorAll(".modal"));
 
 // FORMS
-const profileForm = document.forms["profile-form"];
 const profileName = document.querySelector(".profile__name");
 const profileDesc = document.querySelector(".profile__description");
+const profileForm = document.forms["profile-form"];
 const profileFormName = editProfileModal.querySelector("[name = 'name']");
 const profileFormDesc = editProfileModal.querySelector(
   "[name = 'description']"
 );
 const addCardForm = document.forms["add-card-form"];
+const submitButtons = Array.from(document.querySelectorAll(".modal__button"));
 
 // CARDS
 const cardTemplate =
@@ -57,7 +59,16 @@ const closeCardFormButton = addCardModal.querySelector(".modal__close-button");
 const closeImageButton = imageModal.querySelector(".modal__close-button");
 
 // FUNCTIONS
+function onOpenModalResetSubmitButton() {
+  submitButtons.forEach((button) => {
+    if (!button.classList.contains("modal__button_disabled")) {
+      button.classList.add("modal__button_disabled");
+      button.disabled = true;
+    }
+  });
+}
 function toggleModal(modal) {
+  onOpenModalResetSubmitButton();
   modal.classList.toggle("modal_opened");
 }
 function toggleModalOnClick(modal) {
@@ -65,6 +76,14 @@ function toggleModalOnClick(modal) {
     toggleModal(modal);
   };
 }
+function closeAllModals() {
+  modals.forEach((modal) => {
+    if (modal.classList.contains("modal_opened")) {
+      toggleModal(modal);
+    }
+  });
+}
+
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -139,3 +158,15 @@ addCardButton.addEventListener("click", addCardButtonClickHandler);
 addCardForm.addEventListener("submit", addCardSubmitHandler);
 closeCardFormButton.addEventListener("click", toggleModalOnClick(addCardModal));
 closeImageButton.addEventListener("click", toggleModalOnClick(imageModal));
+document.addEventListener("keydown", function (evt) {
+  if (evt.key === "Escape") {
+    closeAllModals();
+  }
+});
+modals.forEach((modal) => {
+  modal.addEventListener("click", function (evt) {
+    if (evt.target === modal) {
+      closeAllModals();
+    }
+  });
+});
