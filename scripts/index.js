@@ -67,19 +67,29 @@ function onOpenModalResetSubmitButton() {
     }
   });
 }
-function toggleModal(modal) {
-  onOpenModalResetSubmitButton();
-  modal.classList.toggle("modal_opened");
+function closeModalOnEscHandler(evt) {
+  console.log("Event Listener Triggered");
+  if (evt.key === "Escape") {
+    closeAllModals();
+  }
 }
-function toggleModalOnClick(modal) {
+function openModal(modal) {
+  document.addEventListener("keydown", closeModalOnEscHandler);
+  modal.classList.add("modal_opened");
+}
+function closeModal(modal) {
+  document.removeEventListener("keydown", closeModalOnEscHandler);
+  modal.classList.remove("modal_opened");
+}
+function closeModalOnClick(modal) {
   return () => {
-    toggleModal(modal);
+    closeModal(modal);
   };
 }
 function closeAllModals() {
   modals.forEach((modal) => {
     if (modal.classList.contains("modal_opened")) {
-      toggleModal(modal);
+      closeModal(modal);
     }
   });
 }
@@ -101,7 +111,7 @@ function getCardElement(data) {
     imageModalImage.src = cardImage.src;
     imageModalImage.alt = `This is a picture of ${cardImage.alt}`;
     imageModalText.textContent = cardImage.alt;
-    toggleModal(imageModal);
+    openModal(imageModal);
   });
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
@@ -117,7 +127,7 @@ function fillProfileForm() {
 }
 function editButtonClickHandler() {
   fillProfileForm();
-  toggleModal(editProfileModal);
+  openModal(editProfileModal);
 }
 function updateProfile() {
   profileName.textContent = profileFormName.value;
@@ -125,12 +135,12 @@ function updateProfile() {
 }
 function profileFormSubmitHandler(evt) {
   evt.preventDefault();
-  toggleModal(editProfileModal);
+  closeModal(editProfileModal);
   updateProfile();
 }
 function addCardButtonClickHandler() {
   addCardForm.reset();
-  toggleModal(addCardModal);
+  openModal(addCardModal);
 }
 function addCardSubmitHandler(evt) {
   evt.preventDefault();
@@ -139,7 +149,7 @@ function addCardSubmitHandler(evt) {
   const cardData = { name: addFormTitle.value, link: addFormImage.value };
   const newCard = getCardElement(cardData);
   cardGallery.prepend(newCard);
-  toggleModal(addCardModal);
+  closeModal(addCardModal);
   addCardForm.reset();
 }
 initialCards.forEach((data) => {
@@ -152,17 +162,12 @@ editButton.addEventListener("click", editButtonClickHandler);
 profileForm.addEventListener("submit", profileFormSubmitHandler);
 closeProfileButton.addEventListener(
   "click",
-  toggleModalOnClick(editProfileModal)
+  closeModalOnClick(editProfileModal)
 );
 addCardButton.addEventListener("click", addCardButtonClickHandler);
 addCardForm.addEventListener("submit", addCardSubmitHandler);
-closeCardFormButton.addEventListener("click", toggleModalOnClick(addCardModal));
-closeImageButton.addEventListener("click", toggleModalOnClick(imageModal));
-document.addEventListener("keydown", function (evt) {
-  if (evt.key === "Escape") {
-    closeAllModals();
-  }
-});
+closeCardFormButton.addEventListener("click", closeModalOnClick(addCardModal));
+closeImageButton.addEventListener("click", closeModalOnClick(imageModal));
 modals.forEach((modal) => {
   modal.addEventListener("click", function (evt) {
     if (evt.target === modal) {
