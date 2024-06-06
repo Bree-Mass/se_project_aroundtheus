@@ -151,10 +151,8 @@ function addCardSubmitHandler(evt) {
 initialCards.forEach((cardData) => {
   cardGallery.append(createCard(cardData));
 });
-formElements.forEach((formElement) => {
-  const formValidator = new FormValidator(options, formElement);
-  formValidator.enableValidation();
-});
+profileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
 
 // EVENT LISTENERS
 editButton.addEventListener("click", editButtonClickHandler);
