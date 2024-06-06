@@ -2,6 +2,16 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 
+// VALIDATOR OPTIONS
+const options = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
 // INITIAL CARDS
 const initialCards = [
   {
@@ -45,6 +55,7 @@ const profileFormDesc = editProfileModal.querySelector(
   "[name = 'description']"
 );
 const addCardForm = document.forms["add-card-form"];
+const formElements = Array.from(document.querySelectorAll(".modal__form"));
 const submitButtons = Array.from(document.querySelectorAll(".modal__button"));
 
 // CARDS
@@ -62,7 +73,7 @@ const closeCardFormButton = addCardModal.querySelector(".modal__close-button");
 const closeImageButton = imageModal.querySelector(".modal__close-button");
 
 // FUNCTIONS
-function onOpenModalResetSubmitButton() {
+function disableFormButtons() {
   submitButtons.forEach((button) => {
     if (!button.classList.contains("modal__button_disabled")) {
       button.classList.add("modal__button_disabled");
@@ -77,7 +88,6 @@ function closeModalOnEscHandler(evt) {
 }
 function openModal(modal) {
   document.addEventListener("keydown", closeModalOnEscHandler);
-  onOpenModalResetSubmitButton();
   modal.classList.add("modal_opened");
 }
 function closeModal(modal) {
@@ -109,7 +119,10 @@ function fillProfileForm() {
   profileFormDesc.value = profileDesc.textContent;
 }
 function editButtonClickHandler() {
+  const formValidator = new FormValidator(options, profileForm);
   fillProfileForm();
+  formValidator.resetValidation(profileFormName);
+  formValidator.resetValidation(profileFormDesc);
   openModal(editProfileModal);
 }
 function updateProfile() {
@@ -120,9 +133,9 @@ function profileFormSubmitHandler(evt) {
   evt.preventDefault();
   closeModal(editProfileModal);
   updateProfile();
+  disableFormButtons();
 }
 function addCardButtonClickHandler() {
-  addCardForm.reset();
   openModal(addCardModal);
 }
 function addCardSubmitHandler(evt) {
@@ -130,15 +143,19 @@ function addCardSubmitHandler(evt) {
   const addFormTitle = addCardModal.querySelector("[name = 'title']");
   const addFormImage = addCardModal.querySelector("[name = 'url']");
   const cardData = { name: addFormTitle.value, link: addFormImage.value };
-  const newCard = getCardElement(cardData);
-  cardGallery.prepend(newCard);
+  const newCard = new Card(cardData, cardTemplate, handleImageClick);
+  cardGallery.prepend(newCard.getCard());
   closeModal(addCardModal);
+  disableFormButtons();
   addCardForm.reset();
 }
 initialCards.forEach((data) => {
   const newCard = new Card(data, cardTemplate, handleImageClick);
-  const cardElement = newCard.getCard();
-  cardGallery.append(cardElement);
+  cardGallery.append(newCard.getCard());
+});
+formElements.forEach((formElement) => {
+  const formValidator = new FormValidator(options, formElement);
+  formValidator.enableValidation();
 });
 
 // EVENT LISTENERS
@@ -159,3 +176,4 @@ modals.forEach((modal) => {
     }
   });
 });
+fillProfileForm();
