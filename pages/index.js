@@ -59,10 +59,18 @@ const formElements = Array.from(
   document.querySelectorAll(options.formSelector)
 );
 
+// FORM VALIDATION
+const profileFormValidator = new FormValidator(options, profileForm);
+const addCardFormValidator = new FormValidator(options, addCardForm);
+
 // CARDS
 const cardTemplate =
   document.querySelector("#card__template").content.firstElementChild;
 const cardGallery = document.querySelector(".gallery__cards");
+const createCard = (cardData) => {
+  const newCard = new Card(cardData, cardTemplate, handleImageClick);
+  return newCard.createCard();
+};
 
 // BUTTONS
 const editButton = document.querySelector(".profile__edit-button");
@@ -72,19 +80,8 @@ const closeProfileButton = editProfileModal.querySelector(
 const addCardButton = document.querySelector(".profile__add-button");
 const closeCardFormButton = addCardModal.querySelector(".modal__close-button");
 const closeImageButton = imageModal.querySelector(".modal__close-button");
-const submitButtons = Array.from(
-  document.querySelectorAll(options.submitButtonSelector)
-);
 
 // FUNCTIONS
-function disableFormButtons() {
-  submitButtons.forEach((button) => {
-    if (!button.classList.contains(options.inactiveButtonClass)) {
-      button.classList.add(options.inactiveButtonClass);
-      button.disabled = true;
-    }
-  });
-}
 function closeModalOnEscHandler(evt) {
   if (evt.key === "Escape") {
     closeAllModals();
@@ -123,10 +120,8 @@ function fillProfileForm() {
   profileFormDesc.value = profileDesc.textContent;
 }
 function editButtonClickHandler() {
-  const formValidator = new FormValidator(options, profileForm);
   fillProfileForm();
-  formValidator.resetValidation(profileFormName);
-  formValidator.resetValidation(profileFormDesc);
+  profileFormValidator.resetFormValidation();
   openModal(editProfileModal);
 }
 function updateProfile() {
@@ -136,8 +131,8 @@ function updateProfile() {
 function profileFormSubmitHandler(evt) {
   evt.preventDefault();
   closeModal(editProfileModal);
+  profileFormValidator.resetButtonValidation();
   updateProfile();
-  disableFormButtons();
 }
 function addCardButtonClickHandler() {
   openModal(addCardModal);
@@ -148,14 +143,13 @@ function addCardSubmitHandler(evt) {
   const addFormImage = addCardModal.querySelector("[name = 'url']");
   const cardData = { name: addFormTitle.value, link: addFormImage.value };
   const newCard = new Card(cardData, cardTemplate, handleImageClick);
-  cardGallery.prepend(newCard.getCard());
+  cardGallery.prepend(newCard.createCard());
   closeModal(addCardModal);
-  disableFormButtons();
+  addCardFormValidator.resetButtonValidation();
   addCardForm.reset();
 }
-initialCards.forEach((data) => {
-  const newCard = new Card(data, cardTemplate, handleImageClick);
-  cardGallery.append(newCard.getCard());
+initialCards.forEach((cardData) => {
+  cardGallery.append(createCard(cardData));
 });
 formElements.forEach((formElement) => {
   const formValidator = new FormValidator(options, formElement);
@@ -180,4 +174,3 @@ modals.forEach((modal) => {
     }
   });
 });
-fillProfileForm();

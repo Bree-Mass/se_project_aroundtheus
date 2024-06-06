@@ -58,13 +58,27 @@ export default class FormValidator {
       });
     });
   }
+  _disableFormButton() {
+    if (
+      !this._submitButton.classList.contains(this._options.inactiveButtonClass)
+    ) {
+      this._submitButton.classList.add(this._options.inactiveButtonClass);
+      this._submitButton.disabled = true;
+    }
+  }
+
   enableValidation() {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
     this._setEventListeners();
   }
-  resetValidation(inputElement) {
-    this._checkInputValidity(inputElement);
+  resetButtonValidation() {
+    this._disableFormButton();
+  }
+  resetFormValidation() {
+    this._inputElements.forEach((inputElement) => {
+      this._checkInputValidity(inputElement);
+    });
   }
 }
