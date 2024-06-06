@@ -55,8 +55,9 @@ const profileFormDesc = editProfileModal.querySelector(
   "[name = 'description']"
 );
 const addCardForm = document.forms["add-card-form"];
-const formElements = Array.from(document.querySelectorAll(".modal__form"));
-const submitButtons = Array.from(document.querySelectorAll(".modal__button"));
+const formElements = Array.from(
+  document.querySelectorAll(options.formSelector)
+);
 
 // CARDS
 const cardTemplate =
@@ -71,12 +72,15 @@ const closeProfileButton = editProfileModal.querySelector(
 const addCardButton = document.querySelector(".profile__add-button");
 const closeCardFormButton = addCardModal.querySelector(".modal__close-button");
 const closeImageButton = imageModal.querySelector(".modal__close-button");
+const submitButtons = Array.from(
+  document.querySelectorAll(options.submitButtonSelector)
+);
 
 // FUNCTIONS
 function disableFormButtons() {
   submitButtons.forEach((button) => {
-    if (!button.classList.contains("modal__button_disabled")) {
-      button.classList.add("modal__button_disabled");
+    if (!button.classList.contains(options.inactiveButtonClass)) {
+      button.classList.add(options.inactiveButtonClass);
       button.disabled = true;
     }
   });
