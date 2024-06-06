@@ -1,3 +1,7 @@
+// IMPORTS
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+
 // INITIAL CARDS
 const initialCards = [
   {
@@ -47,7 +51,6 @@ const submitButtons = Array.from(document.querySelectorAll(".modal__button"));
 const cardTemplate =
   document.querySelector("#card__template").content.firstElementChild;
 const cardGallery = document.querySelector(".gallery__cards");
-const imageModalImage = imageModal.querySelector(".modal__image");
 
 // BUTTONS
 const editButton = document.querySelector(".profile__edit-button");
@@ -68,13 +71,13 @@ function onOpenModalResetSubmitButton() {
   });
 }
 function closeModalOnEscHandler(evt) {
-  console.log("Event Listener Triggered");
   if (evt.key === "Escape") {
     closeAllModals();
   }
 }
 function openModal(modal) {
   document.addEventListener("keydown", closeModalOnEscHandler);
+  onOpenModalResetSubmitButton();
   modal.classList.add("modal_opened");
 }
 function closeModal(modal) {
@@ -93,33 +96,13 @@ function closeAllModals() {
     }
   });
 }
-
-function getCardElement(data) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardDesc = cardElement.querySelector(".card__description");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const trashButton = cardElement.querySelector(".card__trash-button");
-  cardDesc.textContent = data.name;
-  cardImage.src = data.link;
-  cardImage.setAttribute("alt", data.name);
-
-  // NEW CARD EVENT LISTENERS //
-  cardImage.addEventListener("click", () => {
-    const imageModalImage = document.querySelector(".modal__image");
-    const imageModalText = document.querySelector(".modal__image-footing");
-    imageModalImage.src = cardImage.src;
-    imageModalImage.alt = `This is a picture of ${cardImage.alt}`;
-    imageModalText.textContent = cardImage.alt;
-    openModal(imageModal);
-  });
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
-  trashButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
-  return cardElement;
+function handleImageClick(cardImage) {
+  const imageModalImage = document.querySelector(".modal__image");
+  const imageModalText = document.querySelector(".modal__image-footing");
+  imageModalImage.src = cardImage.src;
+  imageModalImage.alt = `This is a picture of ${cardImage.alt}`;
+  imageModalText.textContent = cardImage.alt;
+  openModal(imageModal);
 }
 function fillProfileForm() {
   profileFormName.value = profileName.textContent;
@@ -153,7 +136,8 @@ function addCardSubmitHandler(evt) {
   addCardForm.reset();
 }
 initialCards.forEach((data) => {
-  const cardElement = getCardElement(data);
+  const newCard = new Card(data, cardTemplate, handleImageClick);
+  const cardElement = newCard.getCard();
   cardGallery.append(cardElement);
 });
 
