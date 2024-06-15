@@ -71,28 +71,23 @@ function editButtonClickHandler() {
   const currentUserInfo = userInfo.getUserInfo();
   profileFormName.value = currentUserInfo.name;
   profileFormDesc.value = currentUserInfo.description;
-  profileFormValidator.resetFormValidation();
-  popupProfileForm.open(editProfileModal);
+  profileFormValidator.enableFormButton();
+  popupProfileForm.open();
 }
-function profileFormSubmitHandler() {
-  userInfo.setUserInfo({
-    name: profileFormName.value,
-    description: profileFormDesc.value,
-  });
-  popupProfileForm.close(editProfileModal);
-  profileFormValidator.resetButtonValidation();
+function profileFormSubmitHandler(inputValues) {
+  userInfo.setUserInfo(inputValues);
 }
 function addCardButtonClickHandler() {
-  popupAddCardForm.open(addCardModal);
+  popupAddCardForm.open();
 }
-function handleAddCardFormSubmit() {
-  const addFormTitle = addCardModal.querySelector("[name = 'title']");
-  const addFormImage = addCardModal.querySelector("[name = 'url']");
-  const cardData = { name: addFormTitle.value, link: addFormImage.value };
-  const newCard = new Card(cardData, cardTemplate, handleImageClick);
-  section.addItem(newCard.createCard());
-  popupAddCardForm.close(addCardModal);
-  addCardFormValidator.resetButtonValidation();
+function handleAddCardFormSubmit(inputValues) {
+  const cardData = {
+    name: inputValues.title,
+    link: inputValues.url,
+  };
+  section.addItem(createCard(cardData));
+  popupAddCardForm.close();
+  addCardFormValidator.disableFormButton();
   addCardForm.reset();
 }
 
