@@ -16,7 +16,7 @@ This project is practice for development of responsive web design. Page should a
 
 **Skills**
 
-This project was built using HTML, CSS, JavaScript, Git and Figma. It was assembled with consideration of Flexbox and Grid layouts while being adjusted with Media queries to accomodate a variety of screen sizes.
+This project was built using HTML, CSS, JavaScript, Git and Figma, Node.js and Webpack. It was assembled with consideration of Flexbox and Grid layouts while being adjusted with Media queries to accomodate a variety of screen sizes.
 
 **Figma**
 
