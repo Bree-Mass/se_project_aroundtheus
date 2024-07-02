@@ -22,7 +22,8 @@ const profileFormDesc = editProfileModal.querySelector(
 const addCardForm = document.forms["add-card-form"];
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
-  descriptionSelector: ".profile__description",
+  aboutSelector: ".profile__description",
+  avatarSelector: ".profile__image",
 });
 const popupProfileForm = new PopupWithForm(
   "#edit-modal",
@@ -77,7 +78,7 @@ function handleImageClick(evt) {
 function editButtonClickHandler() {
   const currentUserInfo = userInfo.getUserInfo();
   profileFormName.value = currentUserInfo.name;
-  profileFormDesc.value = currentUserInfo.description;
+  profileFormDesc.value = currentUserInfo.about;
   profileFormValidator.enableFormButton();
   popupProfileForm.open();
 }
@@ -100,16 +101,18 @@ function handleAddCardFormSubmit(inputValues) {
 
 // CLASS METHOD CALLERS
 api
-  .getInitialCards()
-  .then((cards) => {
+  .returnData()
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo(userData);
     cards.forEach((card) => {
       renderer(card);
     });
+    console.log(userData);
   })
   .catch((err) => {
     console.error(err);
   });
-section.renderItems();
+// section.renderItems();
 imageModal.setEventListeners();
 profileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
