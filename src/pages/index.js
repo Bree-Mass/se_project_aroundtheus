@@ -6,11 +6,11 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import "../pages/index.css";
 
 // MODALS
 const editProfileModal = document.querySelector("#edit-modal");
-const addCardModal = document.querySelector("#add-modal");
 const imageModal = new PopupWithImage("#image-modal");
 
 // FORMS
@@ -38,6 +38,13 @@ const profileFormValidator = new FormValidator(options, profileForm);
 const addCardFormValidator = new FormValidator(options, addCardForm);
 
 // CARDS
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "3f4287cc-0267-4f84-80ed-88627a1cce84",
+    "Content-Type": "application/json",
+  },
+});
 const cardTemplate =
   document.querySelector("#card__template").content.firstElementChild;
 const createCard = (cardData) => {
@@ -92,6 +99,16 @@ function handleAddCardFormSubmit(inputValues) {
 }
 
 // CLASS METHOD CALLERS
+api
+  .getInitialCards()
+  .then((cards) => {
+    cards.forEach((card) => {
+      renderer(card);
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 section.renderItems();
 imageModal.setEventListeners();
 profileFormValidator.enableValidation();
