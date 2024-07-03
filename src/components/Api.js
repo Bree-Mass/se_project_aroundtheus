@@ -3,36 +3,33 @@ export default class Api {
     this._options = options;
   }
   _getUserAvatar() {
-    return fetch(
-      "https://around-api.en.tripleten-services.com/v1/users/me/avatar",
-      {
-        headers: {
-          authorization: "3f4287cc-0267-4f84-80ed-88627a1cce84",
-        },
+    return fetch(this._options.baseUrl + "/users/me/avatar", {
+      headers: {
+        authorization: this._options.headers.authorization,
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
       }
-    ).then((info) => {
-      if (info.ok) {
-        return info.json();
-      }
-      return Promise.reject(`Error: ${info.status}`);
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
   _getUserData() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+    return fetch(`${this._options.baseUrl}/users/me`, {
       headers: {
-        authorization: "3f4287cc-0267-4f84-80ed-88627a1cce84",
+        authorization: this._options.headers.authorization,
       },
-    }).then((info) => {
-      if (info.ok) {
-        return info.json();
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
       }
-      return Promise.reject(`Error: ${info.status}`);
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
   _getInitialCards() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+    return fetch(`${this._options.baseUrl}/cards`, {
       headers: {
-        authorization: "3f4287cc-0267-4f84-80ed-88627a1cce84",
+        authorization: this._options.headers.authorization,
       },
     }).then((res) => {
       if (res.ok) {
@@ -43,5 +40,101 @@ export default class Api {
   }
   returnData() {
     return Promise.all([this._getUserData(), this._getInitialCards()]);
+  }
+  patchUserInfo({ name, about }) {
+    return fetch(`${this._options.baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._options.headers.authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+  patchAvatar(avatarLink) {
+    return fetch(`${this._options.baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._options.headers.authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: avatarLink,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+  postNewCard({ name, link }) {
+    return fetch(`${this._options.baseUrl}/cards`, {
+      method: "POST",
+      headers: {
+        authorization: this._options.headers.authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+  deleteCard(cardId) {
+    return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._options.headers.authorization,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  addLike(cardId) {
+    return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: {
+        authorization: this._options.headers.authorization,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+  removeLike(cardId) {
+    return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._options.headers.authorization,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 }

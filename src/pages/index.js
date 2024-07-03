@@ -5,7 +5,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import UserInfo from "../components/UserInfo.js";
+import User from "../components/User.js";
 import Api from "../components/Api.js";
 import "../pages/index.css";
 
@@ -16,11 +16,9 @@ const imageModal = new PopupWithImage("#image-modal");
 // FORMS
 const profileForm = document.forms["profile-form"];
 const profileFormName = editProfileModal.querySelector("[name = 'name']");
-const profileFormDesc = editProfileModal.querySelector(
-  "[name = 'description']"
-);
+const profileFormDesc = editProfileModal.querySelector("[name = 'about']");
 const addCardForm = document.forms["add-card-form"];
-const userInfo = new UserInfo({
+const user = new User({
   nameSelector: ".profile__name",
   aboutSelector: ".profile__description",
   avatarSelector: ".profile__image",
@@ -33,12 +31,14 @@ const popupAddCardForm = new PopupWithForm(
   "#add-modal",
   handleAddCardFormSubmit
 );
+const popupDelete = new PopupWithForm("#delete-modal", handleDeleteSubmit);
 
 // FORM VALIDATION
 const profileFormValidator = new FormValidator(options, profileForm);
 const addCardFormValidator = new FormValidator(options, addCardForm);
 
 // CARDS
+const currentCardId = { id: "" };
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -49,7 +49,13 @@ const api = new Api({
 const cardTemplate =
   document.querySelector("#card__template").content.firstElementChild;
 const createCard = (cardData) => {
-  const newCard = new Card(cardData, cardTemplate, handleImageClick);
+  const newCard = new Card(
+    cardData,
+    cardTemplate,
+    handleImageClick,
+    handleDeleteButtonClick,
+    handleLikeButtonClick
+  );
   return newCard.createCard();
 };
 
@@ -76,14 +82,18 @@ function handleImageClick(evt) {
   imageModal.open(imageData);
 }
 function editButtonClickHandler() {
-  const currentUserInfo = userInfo.getUserInfo();
-  profileFormName.value = currentUserInfo.name;
-  profileFormDesc.value = currentUserInfo.about;
+  const currentUser = user.getUserInfo();
+  profileFormName.value = currentUser.name;
+  profileFormDesc.value = currentUser.about;
   profileFormValidator.enableFormButton();
   popupProfileForm.open();
 }
 function profileFormSubmitHandler(inputValues) {
-  userInfo.setUserInfo(inputValues);
+  console.log(inputValues);
+  user.setUserInfo(inputValues);
+  api.patchUserInfo(inputValues).catch((err) => {
+    console.error(err);
+  });
 }
 function addCardButtonClickHandler() {
   popupAddCardForm.open();
@@ -94,25 +104,49 @@ function handleAddCardFormSubmit(inputValues) {
     link: inputValues.url,
   };
   section.addItem(createCard(cardData));
+  api.postNewCard(cardData).catch((err) => {
+    console.error(err);
+  });
   popupAddCardForm.close();
   addCardFormValidator.disableFormButton();
   addCardForm.reset();
+}
+function handleDeleteButtonClick(cardId) {
+  currentCardId.id = cardId;
+  popupDelete.open();
+}
+
+function handleDeleteSubmit() {
+  api.deleteCard(currentCardId.id).catch((err) => {
+    console.error(err);
+  });
+}
+function handleLikeButtonClick(cardId, isLiked) {
+  currentCardId.id = cardId;
+  if (isLiked) {
+    api.removeLike(currentCardId.id).catch((err) => {
+      console.error(err);
+    });
+  } else {
+    api.addLike(currentCardId.id).catch((err) => {
+      console.error(err);
+    });
+  }
 }
 
 // CLASS METHOD CALLERS
 api
   .returnData()
   .then(([userData, cards]) => {
-    userInfo.setUserInfo(userData);
+    user.setUserAvatar(userData.avatar);
+    user.setUserInfo(userData);
     cards.forEach((card) => {
       renderer(card);
     });
-    console.log(userData);
   })
   .catch((err) => {
     console.error(err);
   });
-// section.renderItems();
 imageModal.setEventListeners();
 profileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
