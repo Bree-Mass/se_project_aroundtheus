@@ -25,14 +25,13 @@ export default class Card {
       this._likeButton.classList.add("card__like-button_active");
     }
   }
-  _toggleLike() {
+  _toggleLike = () => {
     this._isLiked = !this._isLiked;
     this._likeButton.classList.toggle("card__like-button_active");
-  }
+  };
   _setLikeButtonListeners() {
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeButtonClick(this._id, this._isLiked);
-      this._toggleLike();
+      this._handleLikeButtonClick(this._id, this._isLiked, this._toggleLike);
     });
   }
   _setTrashButtonListeners() {
