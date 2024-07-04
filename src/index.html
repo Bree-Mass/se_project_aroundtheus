@@ -21,6 +21,7 @@
             alt="User profile picture"
             class="profile__image"
           />
+          <button type="button" class="profile__image-button"></button>
           <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
             <button type="button" class="profile__edit-button"></button>
@@ -130,12 +131,31 @@
         </form>
       </div>
     </div>
-    <!-- PICTURE MODAL -->
-    <div class="modal" id="image-modal">
-      <div class="modal__image-container">
-        <img src="" alt="" class="modal__image" />
+    <!-- AVATAR MODAL -->
+    <div class="modal" id="avatar-modal">
+      <div class="modal__container">
         <button class="modal__close-button"></button>
-        <p class="modal__image-footing"></p>
+        <h3 class="modal__heading">Change profile picture</h3>
+        <form id="avatar-form" class="modal__form">
+          <label class="modal__label">
+            <input
+              type="url"
+              name="url"
+              class="modal__input"
+              id="input-url"
+              placeholder="Image URL"
+              required
+            />
+            <span class="modal__error" id="input-url-error"></span>
+          </label>
+          <button
+            type="submit"
+            class="modal__button modal__button_disabled"
+            disabled
+          >
+            Save
+          </button>
+        </form>
       </div>
     </div>
     <!-- DELETE MODAL -->
@@ -148,6 +168,14 @@
             Yes
           </button>
         </form>
+      </div>
+    </div>
+    <!-- PICTURE MODAL -->
+    <div class="modal" id="image-modal">
+      <div class="modal__image-container">
+        <img src="" alt="" class="modal__image" />
+        <button class="modal__close-button"></button>
+        <p class="modal__image-footing"></p>
       </div>
     </div>
   </body>
