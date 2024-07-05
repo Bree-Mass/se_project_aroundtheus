@@ -109,6 +109,11 @@
   line-height: 1.2;
   height: 50px;
   margin-top: 48px;
+  padding: 0px;
+}
+
+.modal__delete-button {
+  margin-top: 14px;
 }
 
 .modal__button_disabled {

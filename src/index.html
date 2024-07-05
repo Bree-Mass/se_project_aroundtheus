@@ -21,6 +21,7 @@
             alt="User profile picture"
             class="profile__image"
           />
+          <button type="button" class="profile__image-button"></button>
           <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
             <button type="button" class="profile__edit-button"></button>
@@ -70,7 +71,7 @@
           <label class="modal__label">
             <input
               type="text"
-              name="description"
+              name="about"
               class="modal__input"
               id="input-description"
               placeholder="Description"
@@ -126,6 +127,45 @@
             disabled
           >
             Save
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- AVATAR MODAL -->
+    <div class="modal" id="avatar-modal">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <h3 class="modal__heading">Change profile picture</h3>
+        <form id="avatar-form" class="modal__form">
+          <label class="modal__label">
+            <input
+              type="url"
+              name="url"
+              class="modal__input"
+              id="input-url"
+              placeholder="Image URL"
+              required
+            />
+            <span class="modal__error" id="input-url-error"></span>
+          </label>
+          <button
+            type="submit"
+            class="modal__button modal__button_disabled"
+            disabled
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- DELETE MODAL -->
+    <div class="modal" id="delete-modal">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <h3 class="modal__heading">Are you sure?</h3>
+        <form id="delete-card-form" class="modal__form">
+          <button type="submit" class="modal__button modal__delete-button">
+            Yes
           </button>
         </form>
       </div>
