@@ -40,5 +40,4 @@ Page could also have more refinement in the Media Queries used to create an even
 **Project Video**
 
 Here is an explanation of the website and its features by me.
-[Link to Google Drive](https://drive.google.com/file/d/1gtYtt3IB_g448QjgUnsCZWrxJZlBqk_h/view?usp=sharing).
-_\*This video is now outdated_
+[Link to Google Drive](https://drive.google.com/file/d/1XVdJJ52viYsqGHN27HNFQJVQ7GgkodTB/view?usp=sharing).
